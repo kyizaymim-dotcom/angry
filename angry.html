@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>စိတ်မဆိုးပါနဲ့တော့နော်... 🥺💕</title>
+    <!-- Google Fonts for Cute Myanmar Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Padauk', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .background-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            animation: floatUp 6s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Card Container */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 105, 135, 0.25);
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* Big Emoji Display Section */
+        .emoji-display {
+            font-size: 80px;
+            line-height: 1;
+            margin-bottom: 15px;
+            display: inline-block;
+            user-select: none;
+            transition: transform 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 24px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        p.sub-text {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Button Layout (Format ကျကျ ယှဉ်ထားခြင်း) */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            min-height: 55px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 17px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            outline: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff4081, #ff80ab);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 12;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.6);
+        }
+
+        /* Second Moving Button */
+        .btn-no {
+            background: #e0e0e0;
+            color: #555;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 20;
+            transition: left 0.35s ease-out, top 0.35s ease-out;
+        }
+
+        /* Class applied when moving starts */
+        .btn-no.moving {
+            position: fixed;
+        }
+
+        /* Success Page (Hidden initially) */
+        .success-page {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .message-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 18px;
+            border-left: 5px solid #ff4081;
+            margin-top: 20px;
+            text-align: left;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.8;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Hearts -->
+    <div class="background-hearts" id="heartsContainer"></div>
+
+    <!-- PAGE 1: Question Page -->
+    <div class="container" id="page1">
+        <div class="emoji-display" id="mainEmoji">🥺</div>
+        <h1>စိတ်ဆိုးနေတုန်းပဲလားဟင်...</h1>
+        <p class="sub-text">ငါ့ကို ခွင့်လွှတ်ပေးပါနော် 💕</p>
+
+        <div class="btn-group" id="btnContainer">
+            <button class="btn btn-yes" onclick="goToSuccessPage()">ခွင့်လွှတ်မယ် 💖</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">စိတ်ဆိုးတုန်းပဲ 😜</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Romantic Apology Message Page -->
+    <div class="container success-page" id="page2">
+        <div class="emoji-display">🥰</div>
+        <h1>ယေး... ကျေးဇူးပါနော်! 💖</h1>
+        
+        <div class="message-box">
+            <p><strong>ချစ်မလေးရေ... ✨</strong></p>
+            <p>ငါ့ကြောင့် စိတ်ညစ်သွားရရင် တကယ်တောင်းပန်ပါတယ်နော်။ စိတ်ထဲမှာ လုံးဝမရည်ရွယ်ပါဘူး။</p>
+            <p>မင်းရဲ့ အပြုံးလေးကိုပဲ မြင်ချင်တာမို့ စိတ်မဆိုးတော့ဘဲ အမြဲတမ်း ပျော်ပျော်ရွှင်ရွှင်လေး နေပေးပါနော်။ တကယ်ချစ်ပါတယ်! 🌸💌</p>
+        </div>
+    </div>
+
+    <script>
+        // Floating Hearts Setup
+        const heartsContainer = document.getElementById('heartsContainer');
+        const heartSymbols = ['❤️', '💖', '💗', '💕', '🌸'];
+
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('bg-heart');
+            heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heartsContainer.appendChild(heart);
+        }
+
+        // List of Emojis that change as she tries to click "No"
+        const emojiList = ['🥺', '😭', '🙈', '😿', '👀', '💔'];
+
+        const noBtn = document.getElementById('noBtn');
+        const mainEmoji = document.getElementById('mainEmoji');
+        let moveCount = 0;
+
+        function dodgeButton() {
+            moveCount++;
+
+            // Enable fixed positioning after first touch/hover so it glides around
+            if (!noBtn.classList.contains('moving')) {
+                noBtn.classList.add('moving');
+            }
+
+            // Keep button safely inside visible screen bounds
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+            const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+            const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            // Dynamic Emoji Change on each attempt
+            const nextEmoji = emojiList[moveCount % emojiList.length];
+            mainEmoji.innerText = nextEmoji;
+
+            // Text changes playfully after multiple attempts
+            if (moveCount > 2 && moveCount <= 5) {
+                noBtn.innerText = "မိအောင်နှိပ်ကြည့်လေ 😜";
+            } else if (moveCount > 5 && moveCount <= 8) {
+                noBtn.innerText = "ပြေးလို့မမီဘူးနော် 🏃‍♀️";
+            } else if (moveCount > 8) {
+                noBtn.innerText = "ခွင့်လွှတ်လိုက်ပါတော့နော် 🥺";
+            }
+        }
+
+        // Navigate to Success Page
+        function goToSuccessPage() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
